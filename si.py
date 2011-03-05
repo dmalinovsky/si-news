@@ -1,5 +1,13 @@
 #!/usr/bin/python
 # coding=utf-8
+"""
+Requirements: python-pyquery, python-qt4
+
+friends.cfg format:
+    ((author_url, author_name), ...)
+stories.cfg format:
+    ({author_url: {story_url: (title, size, desc), ...}, ...}, [new_url1, ...])
+"""
 
 import ConfigParser
 import sys
