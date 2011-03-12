@@ -5,7 +5,7 @@ Useful for Russians only. Written on Python with PyQt.
 Requirements: [python-pyquery](http://packages.python.org/pyquery/),
 [python-qt4](http://www.riverbankcomputing.com/software/pyqt/download)
 
-== Инструкция по-русски ==
+## Инструкция по-русски ##
 
 Программа помогает следить за новинками СИ. После первого запуска нужно зайди в
 меню "Файл/Параметры" и указать свою страничку друзей
