@@ -14,3 +14,6 @@ Requirements: [python-pyquery](http://packages.python.org/pyquery/),
 "Просмотр/Обновить". Теперь программа будет знать, какие произведения считать
 старыми, и при последущих обновлениях отобразит новинки. Новым считается
 произведение, добавленное или изменённое между обновлениями списка известных.
+
+![Окно программы с диалогом
+параметров](https://picasaweb.google.com/lh/photo/QpL555__YA95vbxvl4N1GmSUucKC4aHYCggfktrfSac?feat=directlink)
