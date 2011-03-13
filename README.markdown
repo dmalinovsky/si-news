@@ -15,5 +15,7 @@ Requirements: [python-pyquery](http://packages.python.org/pyquery/),
 старыми, и при последущих обновлениях отобразит новинки. Новым считается
 произведение, добавленное или изменённое между обновлениями списка известных.
 
-![Окно программы с диалогом
-параметров](https://picasaweb.google.com/lh/photo/QpL555__YA95vbxvl4N1GmSUucKC4aHYCggfktrfSac?feat=directlink)
+<table style="width:auto;"><tr><td><a
+href="https://picasaweb.google.com/lh/photo/QpL555__YA95vbxvl4N1GmSUucKC4aHYCggfktrfSac?feat=embedwebsite"><img
+src="https://lh5.googleusercontent.com/_5s5fpajuq2M/TXzlPQe3qII/AAAAAAAAEaM/uLMXjk1l_6c/s400/si-news.png"
+height="281" width="400" /></a></td></tr></table>
