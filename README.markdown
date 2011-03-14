@@ -9,8 +9,9 @@ Requirements: [python-pyquery](http://packages.python.org/pyquery/),
 
 Программа помогает следить за новинками СИ.
 
-Для установки можно использовать `pip install si-news-XX.tar.gz`. PyQt
-необходимо установить вручную (для Debian/Ubuntu с помощью команды `apt-get
+Для установки можно использовать `pip install si-news`. Необходима версия
+Python >= 2.6. PyQt
+нужно установить вручную (для Debian/Ubuntu с помощью команды `apt-get
 install python-qt4`). Для запуска программы теперь можно использовать просто
 `si_news`.
 
