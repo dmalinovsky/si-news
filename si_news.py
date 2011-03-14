@@ -12,6 +12,7 @@ stories.cfg format:
 import ConfigParser
 import cPickle as pickle
 import json
+import os
 from PyQt4 import QtCore
 from PyQt4 import QtGui
 from PyQt4 import QtNetwork
@@ -21,12 +22,19 @@ import sys
 import urllib2
 
 
+# Folder to store all configuration
+HOMEDIR = os.path.expanduser(os.path.join('~', '.si_news'))
+if not os.path.isdir(HOMEDIR):
+    os.mkdir(HOMEDIR)
+
 # Index page for author stories
 STORY_INDEX = 'indexdate.shtml'
 # File name with list of friends
-CFG_FRIENDS = 'friends.cfg'
+CFG_FRIENDS = os.path.join(HOMEDIR, 'friends.cfg')
 # File name with list of stories
-CFG_STORIES = 'stories.cfg'
+CFG_STORIES = os.path.join(HOMEDIR, 'stories.cfg')
+# Various GUI settings, currently stores friends page URL only
+CFG_GUI = os.path.join(HOMEDIR, 'si.ini')
 
 
 class Parser(object):
@@ -152,7 +160,6 @@ class Parser(object):
 
 class MainWindow(QtGui.QMainWindow):
     UPDATE_DELAY = 1000  # Delay in ms. between updates
-    CONFIG_FILE = 'si.ini'  # Configuration file name
 
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -297,7 +304,7 @@ class MainWindow(QtGui.QMainWindow):
     def on_author_update(self, stories):
         author_url, author_name = self.updating_links.pop(0)
         if stories is False:
-            self.statusBar().setText(u'Не удалось скачать %s' % author_url)
+            self.statusBar().showMessage(u'Не удалось скачать %s' % author_url)
         else:
             if author_url in self.stories:
                 for url, story in stories.iteritems():
@@ -314,7 +321,7 @@ class MainWindow(QtGui.QMainWindow):
     def show_options(self):
         # Read configuration file
         cfg = ConfigParser.SafeConfigParser()
-        cfg.read(self.CONFIG_FILE)
+        cfg.read(CFG_GUI)
         try:
             friends_url = cfg.get('DEFAULT', 'friends_url')
         except ConfigParser.NoOptionError:
@@ -326,7 +333,7 @@ class MainWindow(QtGui.QMainWindow):
         # Update friends list
         friends_url = str(options.friends_page.text())
         cfg.set('DEFAULT', 'friends_url', friends_url)
-        with open(self.CONFIG_FILE, 'w') as cfg_file:
+        with open(CFG_GUI, 'w') as cfg_file:
             cfg.write(cfg_file)
         self.statusBar().showMessage(u'Загрузка нового списка друзей...')
         QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
