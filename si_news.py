@@ -306,15 +306,18 @@ class MainWindow(QtGui.QMainWindow):
         if stories is False:
             self.statusBar().showMessage(u'Не удалось скачать %s' % author_url)
         else:
+            is_new = False
             if author_url in self.stories:
                 for url, story in stories.iteritems():
                     if (url not in self.stories[author_url] or
                             self.stories[author_url][url] != story):
                         self.new_urls.append(url)
+                        is_new = True
             self.stories[author_url] = stories
-            html = (self.content.page().mainFrame().toHtml() +
-                self.get_author_html(author_url, author_name))
-            self.content.setHtml(html)
+            if is_new:
+                html = (self.content.page().mainFrame().toHtml() +
+                    self.get_author_html(author_url, author_name))
+                self.content.setHtml(html)
         self.progress_bar.setValue(self.progress_bar.value() + 1)
         self.schedule_update_author()
 
