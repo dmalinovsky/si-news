@@ -315,9 +315,11 @@ class MainWindow(QtGui.QMainWindow):
                         is_new = True
             self.stories[author_url] = stories
             if is_new:
-                html = (self.content.page().mainFrame().toHtml() +
-                    self.get_author_html(author_url, author_name))
+                frame = self.content.page().mainFrame()
+                scroll_pos = frame.scrollPosition()
+                html = frame.toHtml() + self.get_author_html(author_url, author_name)
                 self.content.setHtml(html)
+                frame.setScrollPosition(scroll_pos)
         self.progress_bar.setValue(self.progress_bar.value() + 1)
         self.schedule_update_author()
 
