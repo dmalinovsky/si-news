@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='si-news',
-    version='0.1.1',
+    version='0.1.2',
     description='Tracks updates for zhurnal.lib.ru authors',
     author='Denis Malinovsky',
     author_email='dmalinovsky@gmail.com',
