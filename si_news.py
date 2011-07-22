@@ -377,4 +377,5 @@ class OptionsDialog(QtGui.QDialog):
 app = QtGui.QApplication(sys.argv)
 wnd = MainWindow()
 wnd.show()
+wnd.raise_()
 sys.exit(app.exec_())
