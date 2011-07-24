@@ -187,30 +187,36 @@ class MainWindow(QtGui.QMainWindow):
         self.statusBar()
 
         # Menu
-        options = QtGui.QAction(u'П&араметры', self)
+        options = QtGui.QAction(self.tr('&Preferences'), self)
         options.setShortcut(QtGui.QKeySequence('Ctrl+P'))
         options.setStatusTip(u'Настроить параметры программы')
         options.setIcon(QtGui.QIcon.fromTheme('document-properties'))
+        options.setMenuRole(QtGui.QAction.PreferencesRole)
         options.triggered.connect(self.show_options)
 
-        quit = QtGui.QAction(u'&Выход', self)
+        quit = QtGui.QAction(self.tr('&Quit'), self)
         quit.setShortcuts(QtGui.QKeySequence.Quit)
         quit.setStatusTip(u'Выход из программы')
         quit.setIcon(QtGui.QIcon.fromTheme('application-exit'))
+        quit.setMenuRole(QtGui.QAction.QuitRole)
         quit.triggered.connect(self.close)
 
-        file_menu = self.menuBar().addMenu(u'&Файл')
+        file_menu = self.menuBar().addMenu(self.tr('&File'))
         file_menu.addAction(options)
         file_menu.addSeparator()
         file_menu.addAction(quit)
 
-        reload = QtGui.QAction(u'&Обновить', self)
+        # On MacOS File menu is empty
+        if sys.platform == 'darwin':
+            file_menu.menuAction().setVisible(False)
+
+        reload = QtGui.QAction(self.tr('&Refresh'), self)
         reload.setShortcuts(QtGui.QKeySequence.Refresh)
         reload.setStatusTip(u'Обновить список последних произведений')
         reload.setIcon(QtGui.QIcon.fromTheme('view-refresh'))
         reload.triggered.connect(self.update_content)
 
-        view_menu = self.menuBar().addMenu(u'&Просмотр')
+        view_menu = self.menuBar().addMenu(self.tr('&View'))
         view_menu.addAction(reload)
 
     def on_link_clicked(self, url):
