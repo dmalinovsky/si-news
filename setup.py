@@ -2,13 +2,13 @@ from setuptools import setup
 
 setup(
     name='si-news',
-    version='0.1.2',
+    version='0.1.3',
     description='Tracks updates for zhurnal.lib.ru authors',
     author='Denis Malinovsky',
     author_email='dmalinovsky@gmail.com',
     url='https://bitbucket.org/dmalinovsky/si-news/',
     py_modules=['si_news'],
-    install_requires=['distribute', 'pyquery'],
+    install_requires=['pyquery'],
     license='gpl',
     classifiers=[
         'Development Status :: 3 - Alpha',
