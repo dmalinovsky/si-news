@@ -13,10 +13,10 @@ import ConfigParser
 import cPickle as pickle
 import json
 import os
-from PyQt4 import QtCore
-from PyQt4 import QtGui
-from PyQt4 import QtNetwork
-from PyQt4 import QtWebKit
+from PySide import QtCore
+from PySide import QtGui
+from PySide import QtNetwork
+from PySide import QtWebKit
 from pyquery import PyQuery as pq
 import sys
 import urllib2
