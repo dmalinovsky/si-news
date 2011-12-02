@@ -117,7 +117,7 @@ class Parser(object):
         if use_json:
             json.dump(data, f, indent=2)
         else:
-            pickle.dump(data, f)
+            pickle.dump(data, f, protocol=2)
         f.close()
 
     @classmethod
@@ -159,7 +159,7 @@ class Parser(object):
 
 
 class MainWindow(QtGui.QMainWindow):
-    UPDATE_DELAY = 1000  # Delay in ms. between updates
+    UPDATE_DELAY = 100  # Delay in ms. between updates
 
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
