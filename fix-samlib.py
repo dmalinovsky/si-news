@@ -31,9 +31,12 @@ if __name__ == '__main__':
             if len(buffer) + len(line) >= TYPOGRAF_LIMIT:
                 html += rt.processText(buffer)
                 buffer = ''
+                print '%dK' % (len(html) / 1024),
+                sys.stdout.flush()
             buffer += line + '\n'
         if buffer:
             html += rt.processText(buffer)
     html = html.decode('windows-1251')
     with codecs.open(output_file, mode='w', encoding='windows-1251') as output:
         output.write(html)
+    print ''
