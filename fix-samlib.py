@@ -15,6 +15,8 @@ if __name__ == '__main__':
         print """Usage: %s input_file""" % sys.argv[0]
         sys.exit(64)
     input_file = sys.argv[1]
+    print input_file
+    sys.stdout.flush()
     (input_name, _) = os.path.splitext(input_file)
     output_file = '%s.html' % input_name
 
@@ -28,6 +30,7 @@ if __name__ == '__main__':
     with open(input_file, mode='r') as input:
         buffer = ''
         for line in input.readlines():
+            line = line.replace("'", '"')
             if len(buffer) + len(line) >= TYPOGRAF_LIMIT:
                 html += rt.processText(buffer)
                 buffer = ''
