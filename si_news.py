@@ -136,7 +136,11 @@ class Parser(object):
         '''Returns page PyQuery object.'''
         opener = urllib2.build_opener()
         opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-        f = opener.open(url)
+        try:
+            f = opener.open(url)
+        except urllib2.HTTPError:
+            print 'HTTP error for %s' % url
+            raise
         return cls.parse_page(f.read(), url)
 
     @classmethod
