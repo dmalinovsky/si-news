@@ -89,9 +89,10 @@ class Parser(object):
             content = reply.readAll()
             content = cls.parse_page(content, str(reply.url().toString()))
             stories = {}
-            for a in content('li > a > b').parent():
-                desc = pq(a).parent().parent().parent()('dd').eq(0).text()
-                stories[a.get('href')] = pq(a).text(), a.getnext().text, desc
+            if content:
+                for a in content('li > a > b').parent():
+                    desc = pq(a).parent().parent().parent()('dd').eq(0).text()
+                    stories[a.get('href')] = pq(a).text(), a.getnext().text, desc
         cls._callback(stories)
 
     @classmethod
@@ -122,8 +123,15 @@ class Parser(object):
 
     @classmethod
     def parse_page(cls, raw_content, url):
-        """Wraps page text in PyQuery."""
-        page = pq(unicode(raw_content, 'cp1251'))
+        """
+        Wraps page text in PyQuery.
+        Returns False on error.
+        """
+        try:
+            page = pq(unicode(raw_content, 'cp1251'))
+        except SyntaxError:
+            print 'Parser error on %s' % url
+            return False
         page.make_links_absolute(base_url=url)
         return page
 
@@ -163,7 +171,7 @@ class Parser(object):
 
 
 class MainWindow(QtGui.QMainWindow):
-    UPDATE_DELAY = 100  # Delay in ms. between updates
+    UPDATE_DELAY = 1  # Delay in ms. between updates
 
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
