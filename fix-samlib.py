@@ -3,6 +3,7 @@
 """Красивая типографика текстов СИ с помощью типографа студии Лебедева."""
 import codecs
 import os
+import re
 import sys
 
 from RemoteTypograf import RemoteTypograf
@@ -31,6 +32,8 @@ if __name__ == '__main__':
         buffer = ''
         for line in input.readlines():
             line = line.replace("'", '"')
+            # Use nice apostrophes in cp1251 encoding
+            line = re.sub(r'(?<=\w)"(?=\w)', chr(146), line, flags=re.U)
             if len(buffer) + len(line) >= TYPOGRAF_LIMIT:
                 html += rt.processText(buffer)
                 buffer = ''
