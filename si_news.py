@@ -315,6 +315,7 @@ class MainWindow(QtGui.QMainWindow):
                 self.statusBar().removeWidget(self.progress_bar)
                 del self.progress_bar
                 Parser.save_stories(self.stories, self.new_urls)
+                QtGui.QApplication.alert(self)
 
     def update_author(self):
         Parser.update_author(self.updating_links[0][0], self.on_author_update)
