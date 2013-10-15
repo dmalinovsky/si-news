@@ -31,11 +31,16 @@ if __name__ == '__main__':
     with open(input_file, mode='r') as input:
         buffer = ''
         for line in input.readlines():
-            line = line.replace("'", '"')
+            line = line.replace("'", '"').replace(chr(3), '')
             # Use nice apostrophes in cp1251 encoding
             line = re.sub(r'(?<=\w)"(?=\w)', chr(146), line, flags=re.U)
             if len(buffer) + len(line) >= TYPOGRAF_LIMIT:
-                html += rt.processText(buffer)
+                chunk = rt.processText(buffer)
+                if len(chunk) < len(buffer) / 2:
+                    print buffer
+                    print chunk
+                    sys.exit(1)
+                html += chunk
                 buffer = ''
                 print '%dK' % (len(html) / 1024),
                 sys.stdout.flush()
