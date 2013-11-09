@@ -31,14 +31,16 @@ if __name__ == '__main__':
     with open(input_file, mode='r') as input:
         buffer = ''
         for line in input.readlines():
-            line = line.replace("'", '"').replace(chr(3), '')
+            line = line.replace("'", '"').replace(chr(3), '').replace(chr(7), '')
             # Use nice apostrophes in cp1251 encoding
             line = re.sub(r'(?<=\w)"(?=\w)', chr(146), line, flags=re.U)
             if len(buffer) + len(line) >= TYPOGRAF_LIMIT:
                 chunk = rt.processText(buffer)
-                if len(chunk) < len(buffer) / 2:
-                    print buffer
+                # Remove nbsp
+                chunk = chunk.replace(chr(160), '')
+                if len(chunk) < min(len(buffer) / 2, 512):
                     print chunk
+                    print "Unable to process HTML"
                     sys.exit(1)
                 html += chunk
                 buffer = ''
