@@ -37,7 +37,7 @@ if __name__ == '__main__':
             if len(buffer) + len(line) >= TYPOGRAF_LIMIT:
                 chunk = rt.processText(buffer)
                 # Remove nbsp
-                chunk = chunk.replace(chr(160), '')
+                chunk = chunk.replace(chr(160), ' ')
                 if len(chunk) < min(len(buffer) / 2, 512):
                     print chunk
                     print "Unable to process HTML"
