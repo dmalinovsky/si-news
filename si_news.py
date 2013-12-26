@@ -325,6 +325,7 @@ class MainWindow(QtGui.QMainWindow):
         if stories is False:
             self.statusBar().showMessage(u'Не удалось скачать %s' % author_url)
         else:
+            self.statusBar().clearMessage()
             is_new = False
             if author_url in self.stories:
                 for url, story in stories.iteritems():
