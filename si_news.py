@@ -232,6 +232,10 @@ class MainWindow(QtGui.QMainWindow):
         view_menu.addAction(reload)
 
     def on_link_clicked(self, url):
+        s_url = url.toString()
+        print s_url
+        if s_url.endswith('.shtml'):
+            url = QtCore.QUrl(u'%s.fb2.zip' % s_url[:-6])
         QtGui.QDesktopServices.openUrl(url)
 
     def on_link_hovered(self, link, title, content):
