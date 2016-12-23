@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 
+from argparse import ArgumentParser
 from collections import OrderedDict, namedtuple
 import ConfigParser
 from datetime import datetime, timedelta
@@ -32,6 +33,10 @@ LOG_URL = 'http://samlib.ru/logs/%Y/%m-%d.log'
 TIMEZONE = timezone('Europe/Moscow')
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(levelname)s] %(message)s')
+
+parser = ArgumentParser(description='SI Updater')
+parser.add_argument('-u', action='store_true', help='update list of friends',
+        dest='update_friends')
 
 LogLine = namedtuple('LogLine', 'url, tag, timestamp, title, author, type, genre, desc, date, img_cnt, update_time, size')
 
@@ -205,8 +210,13 @@ class Parser(object):
         wb.open_new_tab('file://%s' % UPDATES_FILE)
 
 
+args = parser.parse_args()
+
 friends_url, last_updated = Parser.read_options()
-#Parser.get_friend_links('http://samlib.ru/cgi-bin/frlist?DIR=m/malinowskij_d')
+assert friends_url, 'Friend list URL is empty'
+
+if args.update_friends:
+    Parser.get_friend_links(friends_url)
 friends = Parser.get_friends()
 assert friends, 'Friend list is empty'
 
