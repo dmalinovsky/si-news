@@ -187,16 +187,21 @@ class Parser(object):
                 since = ts.strftime('%H:%M')
             else:
                 since = ts.strftime('%d/%m')
+            params = up._asdict()
+            params['since'] = since
+            if len(params['desc']) > 256:
+                params['desc'] = params['desc'].strip() + '…'
+            params['author_url'] = params['url'].rsplit('/', 1)[0] + '/'
             html += """
             <p>
-            <li>{0}
-            <a href=""><font color=#555555>{author}:</font></a>
+            <li>{since}
+            <a href="{author_url}"><font color=#555555>{author}:</font></a>
             <a href="{url}.shtml"><b>{title}</b></a> &nbsp;
             <b>{size}</b> &nbsp;
             <small> "{type}" {genre}</small>
             <br><dd><font color="#555555">{desc}</font></dd>
             </p>
-            """.format(since, **up._asdict())
+            """.format(**params)
         html += '</body></html>'
         with open(UPDATES_FILE, 'wb') as fp:
             fp.write(html.encode('utf8'))
