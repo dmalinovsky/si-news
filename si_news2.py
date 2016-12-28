@@ -170,7 +170,7 @@ class Parser(object):
             try:
                 log = LogLine._make(line.split('|'))
             except TypeError:
-                logging.debug('Invalid format of %s', line)
+                logging.warning('Invalid format of %s', line)
                 continue
             author = log.url.rsplit('/', 1)[0] + '/'
             if author in friends:
@@ -209,7 +209,7 @@ class Parser(object):
         try:
             wb = webbrowser.get('safari')
         except webbrowser.Error:
-            logging.debug("Can't find Safari browser, falling back to default")
+            logging.warning("Can't find Safari browser, falling back to default")
             wb = webbrowser
 
         wb.open_new_tab('file://%s' % UPDATES_FILE)
@@ -235,6 +235,7 @@ while start_date < now:
     day_updates = Parser.load_updates(friends, start_date)
     for url, up in day_updates.iteritems():
         if up.tag == 'DEL':
+            logging.info('Deleted "{title}" by {author}'.format(**up._asdict()))
             if url in updates:
                 del updates[url]
         elif up.tag == 'EDT':
