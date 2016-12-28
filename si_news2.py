@@ -238,10 +238,6 @@ while start_date < now:
             logging.info('Deleted "{title}" by {author}'.format(**up._asdict()))
             if url in updates:
                 del updates[url]
-        elif up.tag == 'EDT':
-            # Only add attribute edit operation if the text was edited before
-            if url in updates:
-                updates[url] = up
         else:
             updates[url] = up
     logging.info('%d new updates, %d total', len(day_updates), len(updates))
