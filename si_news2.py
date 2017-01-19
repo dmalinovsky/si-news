@@ -245,4 +245,7 @@ while start_date < now:
 
 start_date = now
 Parser.write_options(friends_url, start_date)
-Parser.generate_html(updates, now)
+if updates:
+    Parser.generate_html(updates, now)
+else:
+    print 'No updates found'
