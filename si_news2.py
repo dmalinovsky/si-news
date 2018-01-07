@@ -206,13 +206,7 @@ class Parser(object):
         with open(UPDATES_FILE, 'wb') as fp:
             fp.write(html.encode('utf8'))
 
-        try:
-            wb = webbrowser.get('safari')
-        except webbrowser.Error:
-            logging.warning("Can't find Safari browser, falling back to default")
-            wb = webbrowser
-
-        wb.open_new_tab('file://%s' % UPDATES_FILE)
+        webbrowser.open_new_tab('file://%s' % UPDATES_FILE)
 
 
 args = parser.parse_args()
