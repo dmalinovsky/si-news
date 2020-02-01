@@ -164,7 +164,7 @@ class Parser(object):
             logging.error("Can't open page: %s", e)
             return {}
 
-        lines = page.text().splitlines()
+        lines = page.text(squash_space=False).splitlines()
         updates = LastUpdatedOrderedDict()
         for line in lines:
             try:
